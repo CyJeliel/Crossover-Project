@@ -1,57 +1,42 @@
 package com.crossover.project.domain.entities;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 
  * @author Cindy
  *
  */
-@Entity
-@Table(name = "Usuario")
-@NamedQueries({
-
-		@NamedQuery(name = "User.verificarCredenciais", query = "SELECT usuario FROM User usuario WHERE usuario.login = :login AND usuario.senha = :senha"),
-		@NamedQuery(name = "User.buscarPorLogin", query = "SELECT usuario FROM User usuario WHERE usuario.login = :login") })
+@Data
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Getter
-	@Setter
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
 
-	@Getter
-	@Setter
 	private String login;
 
-	@Getter
-	@Setter
-	private String senha;
+	private String password;
 
-	@Getter
-	@Setter
-	private String nome;
+	private String fullName;
 
-	@Setter
-	@Getter
-	private transient String confirmacaoSenha;
+	private String passwordConfirmation;
 
-	@Setter
-	@Getter
-	private transient String novaSenha;
+	private String newPassword;
+
+	private Set<Answer> answers;
+
+	public void add(Answer answer) {
+
+		if (this.answers == null) {
+
+			answers = new HashSet<>();
+		}
+		
+		answers.add(answer);
+	}
 }

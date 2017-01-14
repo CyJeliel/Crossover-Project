@@ -47,13 +47,12 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.5</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
@@ -75,5 +74,6 @@
 		<module>crossover-project-web</module>
 		<module>crossover-project-ear</module>
 		<module>crossover-project-api</module>
+		<module>crossover-project-repository</module>
 	</modules>
 </project>

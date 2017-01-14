@@ -43,6 +43,11 @@
 						</ejbModule>
 						<jarModule>
 							<groupId>crossover</groupId>
+							<artifactId>crossover-project-repository</artifactId>
+							<bundleDir>/lib</bundleDir>
+						</jarModule>
+						<jarModule>
+							<groupId>crossover</groupId>
 							<artifactId>crossover-project-domain</artifactId>
 							<bundleDir>/lib</bundleDir>
 						</jarModule>
@@ -86,6 +91,12 @@
 		<dependency>
 			<groupId>crossover</groupId>
 			<artifactId>crossover-project-domain</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>crossover</groupId>
+			<artifactId>crossover-project-repository</artifactId>
 			<version>1.0</version>
 			<type>jar</type>
 		</dependency>
