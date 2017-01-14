@@ -14,9 +14,7 @@ public interface IRepository<T> extends Serializable {
 
     void delete(Serializable id);
 
-    T getById(long id);
-
-    T getById(String id);
+    T getById(Serializable id);
 
     T get(String namedQuery, Map<String, Object> map);
     

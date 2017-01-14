@@ -1,8 +1,8 @@
 package com.crossover.project.domain.entities;
 
-import java.io.Serializable;
+import com.crossover.project.domain.interfaces.InterfaceDomain;
 
-public class Answer implements Serializable {
+public class Answer implements InterfaceDomain<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,4 +26,8 @@ public class Answer implements Serializable {
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return description;
+	}
 }

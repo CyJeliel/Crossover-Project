@@ -14,6 +14,7 @@ import javax.persistence.Parameter;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import com.crossover.project.domain.interfaces.InterfaceDomain;
 import com.crossover.project.repository.interfaces.core.IRepository;
 import com.crossover.project.repository.mapper.entities.core.InterfaceEntity;
 import com.crossover.project.repository.mapper.interfaces.IMapper;
@@ -21,13 +22,15 @@ import com.crossover.project.repository.mapper.interfaces.IMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class Repository<T extends InterfaceEntity<?>, U> implements IRepository<U> {
+public abstract class Repository<T extends InterfaceEntity<?>, U extends InterfaceDomain<?>> implements IRepository<U> {
 
 	private static final long serialVersionUID = 1L;
 
 	private transient Class<T> clazz;
 
 	private transient IMapper<T, U> mapper;
+
+	private EntityManager em;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected Repository(IMapper<T, U> mapper) {
@@ -40,7 +43,9 @@ public abstract class Repository<T extends InterfaceEntity<?>, U> implements IRe
 
 	public EntityManager getEntityManager() {
 
-		return Persistence.createEntityManagerFactory("com.crossover.project").createEntityManager();
+		em = Persistence.createEntityManagerFactory("com.crossover.project").createEntityManager();
+
+		return em;
 	}
 
 	@Override
@@ -48,7 +53,15 @@ public abstract class Repository<T extends InterfaceEntity<?>, U> implements IRe
 
 		T entity = mapper.domainToEntity(entityDomain);
 
-		getEntityManager().persist(entity);
+		em = getEntityManager();
+
+		em.getTransaction().begin();
+
+		em.persist(entity);
+
+		em.getTransaction().commit();
+
+		em.close();
 	}
 
 	@Override
@@ -56,31 +69,51 @@ public abstract class Repository<T extends InterfaceEntity<?>, U> implements IRe
 
 		T entity = mapper.domainToEntity(entityDomain);
 
-		getEntityManager().merge(entity);
+		em = getEntityManager();
+
+		em.getTransaction().begin();
+
+		em.find(clazz, entityDomain.getId());
+		
+		em.merge(entity);
+
+		em.getTransaction().commit();
+
+		em.close();
 	}
 
 	@Override
 	public void delete(U entity) {
 
-		getEntityManager().remove(entity);
+		em = getEntityManager();
+
+		em.getTransaction().begin();
+
+		em.remove(entity);
+
+		em.getTransaction().commit();
+
+		em.close();
 	}
 
 	@Override
 	public void delete(Serializable id) {
 
-		T t = getEntityManager().find(clazz, id);
+		em = getEntityManager();
 
-		getEntityManager().remove(t);
+		em.getTransaction().begin();
+
+		T t = em.find(clazz, id);
+
+		em.remove(t);
+
+		em.getTransaction().commit();
+
+		em.close();
 	}
 
 	@Override
-	public U getById(long id) {
-
-		return mapper.entityToDomain(getEntityManager().find(clazz, id));
-	}
-
-	@Override
-	public U getById(String id) {
+	public U getById(Serializable id) {
 
 		return mapper.entityToDomain(getEntityManager().find(clazz, id));
 	}
@@ -105,7 +138,20 @@ public abstract class Repository<T extends InterfaceEntity<?>, U> implements IRe
 	@Override
 	public Collection<U> getAll() {
 
-		return getEntityManager().createNamedQuery(clazz.getSimpleName() + ".listar").getResultList();
+		em = getEntityManager();
+
+		List<T> list = (List<T>) em.createNamedQuery(clazz.getSimpleName() + ".listar").getResultList();
+
+		Collection<U> collection = new ArrayList<>();
+
+		for (T t : list) {
+
+			collection.add(mapper.entityToDomain(t));
+		}
+		
+		em.close();
+
+		return collection;
 	}
 
 	@Override
@@ -119,6 +165,8 @@ public abstract class Repository<T extends InterfaceEntity<?>, U> implements IRe
 
 			collection.add(mapper.entityToDomain(t));
 		}
+
+		em.close();
 
 		return collection;
 

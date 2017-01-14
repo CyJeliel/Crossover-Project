@@ -3,7 +3,9 @@ package com.crossover.project.repository.mapper.interfaces;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import com.crossover.project.domain.entities.Answer;
 import com.crossover.project.domain.entities.User;
+import com.crossover.project.repository.mapper.implementations.entities.AnswerEntity;
 import com.crossover.project.repository.mapper.implementations.entities.UserEntity;
 
 @Mapper
@@ -14,4 +16,8 @@ public interface IUserMap extends IMapper<UserEntity, User> {
 	UserEntity entityToDomain(User user);
 
 	User domainToEntity(UserEntity userEntity);
+
+	Answer entityToDomain(AnswerEntity answer);
+	
+	AnswerEntity domainToEntity(Answer answer);
 }

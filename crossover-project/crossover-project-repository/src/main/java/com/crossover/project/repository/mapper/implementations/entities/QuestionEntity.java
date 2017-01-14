@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +36,10 @@ public class QuestionEntity implements InterfaceEntity<Integer> {
 	private String description;
 
 	private Integer number;
+
+	@ManyToOne
+	@JoinColumn(name = "testExamId")
+	private TestExamEntity testExamEntity;
 
 	@OneToMany(mappedBy = "questionEntity", targetEntity = AnswerEntity.class, cascade = ALL)
 	private List<AnswerEntity> answers = new ArrayList<>();

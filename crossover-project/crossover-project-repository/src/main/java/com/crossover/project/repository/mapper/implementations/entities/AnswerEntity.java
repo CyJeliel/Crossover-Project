@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.crossover.project.repository.mapper.entities.core.InterfaceEntity;
@@ -20,6 +22,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Answer")
+@NamedQueries({
+		@NamedQuery(name = "Answer.getAnswersByUser", query = "SELECT a FROM AnswerEntity a JOIN a.users u WHERE u.id = :userId") })
 public class AnswerEntity implements InterfaceEntity<Integer> {
 
 	private static final long serialVersionUID = 1L;

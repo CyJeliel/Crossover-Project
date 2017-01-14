@@ -2,7 +2,7 @@ package com.crossover.project.repository.mapper.implementations.entities;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,8 +17,6 @@ import javax.persistence.Table;
 
 import com.crossover.project.repository.mapper.entities.core.InterfaceEntity;
 
-import lombok.Data;
-
 /**
  * 
  * @author Cindy
@@ -30,7 +28,6 @@ import lombok.Data;
 
 		@NamedQuery(name = "User.checkCredentials", query = "SELECT user FROM UserEntity user WHERE user.login = :login AND user.password = :password"),
 		@NamedQuery(name = "User.searchForLogin", query = "SELECT user FROM UserEntity user WHERE user.login = :login") })
-@Data
 public class UserEntity implements InterfaceEntity<Integer> {
 
 	private static final long serialVersionUID = 1L;
@@ -47,5 +44,45 @@ public class UserEntity implements InterfaceEntity<Integer> {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_answers", joinColumns = @JoinColumn(name = "userId") , inverseJoinColumns = @JoinColumn(name = "answerId") )
-	private Set<AnswerEntity> answers;
+	private List<AnswerEntity> answers;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public List<AnswerEntity> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<AnswerEntity> answers) {
+		this.answers = answers;
+	}
 }

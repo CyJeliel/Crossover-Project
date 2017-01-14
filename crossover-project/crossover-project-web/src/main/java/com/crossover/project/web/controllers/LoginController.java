@@ -7,6 +7,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.crossover.project.application.interfaces.ILoginApplication;
+import com.crossover.project.application.interfaces.ITestExamApplication;
 import com.crossover.project.domain.entities.User;
 import com.crossover.project.domain.enumerations.UserStatusEnum;
 
@@ -19,6 +20,9 @@ public class LoginController {
 	@Autowired
 	ILoginApplication application;
 
+	@Autowired
+	ITestExamApplication testExamApplication;
+
 	@Getter
 	private User user;
 
@@ -27,7 +31,7 @@ public class LoginController {
 
 		ModelAndView mav = new ModelAndView();
 
-		String description = "Description";
+		String description = testExamApplication.get().getDescription();
 
 		mav.addObject("testDescription", description);
 
@@ -55,7 +59,7 @@ public class LoginController {
 
 		default:
 
-			mav.setViewName("forward:/question");
+			mav.setViewName("redirect:/question");
 
 			this.user = user;
 
@@ -64,4 +68,5 @@ public class LoginController {
 
 		return mav;
 	}
+
 }

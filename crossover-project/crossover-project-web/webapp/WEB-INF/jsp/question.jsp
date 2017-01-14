@@ -1,7 +1,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -17,13 +17,18 @@
 
 		<p>${question.description }</p>
 
-		<form method="post" action="login">
-			<c:forEach var="answer" items="${question.answers}">
+		<form:form method="post" action="question" commandName="question">
+				
+				<input type="hidden" name="id" value="${question.id}">
+				
+				<form:radiobuttons  items="${question.answersMap}"  path="chosenAnswer.id"  />
 
-				<form:radiobutton path="answer" value="${answer.id}" />${answer.description}
-			
-		</c:forEach>
-		</form>
+				<br />
+				<br />
+				
+			<input type="submit"  value="Next Question" />
+
+		</form:form>
 	</div>
 </body>
 </html>

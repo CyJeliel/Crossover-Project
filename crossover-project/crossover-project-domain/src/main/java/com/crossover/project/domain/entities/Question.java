@@ -1,9 +1,12 @@
 package com.crossover.project.domain.entities;
 
-import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-public class Question implements Serializable {
+import com.crossover.project.domain.interfaces.InterfaceDomain;
+
+public class Question implements InterfaceDomain<Integer> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,6 +19,8 @@ public class Question implements Serializable {
 	private Integer number;
 
 	private List<Answer> answers;
+
+	private Answer chosenAnswer;
 
 	public Integer getId() {
 		return id;
@@ -49,11 +54,24 @@ public class Question implements Serializable {
 		this.number = number;
 	}
 
+	public Answer getChosenAnswer() {
+		return chosenAnswer;
+	}
+
+	public void setChosenAnswer(Answer chosenAnswer) {
+		this.chosenAnswer = chosenAnswer;
+	}
+
 	public List<Answer> getAnswers() {
 		return answers;
 	}
 
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
+	}
+
+	public Map<Integer, String> getAnswersMap() {
+
+		return answers.stream().collect(Collectors.toMap(Answer::getId, Answer::getDescription));
 	}
 }

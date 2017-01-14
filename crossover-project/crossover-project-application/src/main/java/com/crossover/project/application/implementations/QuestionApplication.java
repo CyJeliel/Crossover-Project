@@ -3,7 +3,6 @@ package com.crossover.project.application.implementations;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -87,17 +86,7 @@ public class QuestionApplication implements IQuestionApplication {
 	@Override
 	public void answer(Answer answer, User user) {
 
-		answer = answerRepo.getById(answer.getId());
-
-		user = userRepo.getById(user.getId());
-
-		List<Answer> answers = getAnswers(user);
-
-		user.setAnswers(new HashSet<>(answers));
-
-		user.add(answer);
-
-		userRepo.update(user);
+		userRepo.update(user, answer);
 	}
 
 }
