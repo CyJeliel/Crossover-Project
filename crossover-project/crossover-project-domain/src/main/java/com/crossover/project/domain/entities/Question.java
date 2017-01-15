@@ -74,4 +74,10 @@ public class Question implements InterfaceDomain<Integer> {
 
 		return answers.stream().collect(Collectors.toMap(Answer::getId, Answer::getDescription));
 	}
+	
+	@Override
+	public String toString() {
+
+		return description;
+	}
 }

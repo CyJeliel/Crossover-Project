@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -14,21 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.crossover.project.application.interfaces.IQuestionApplication;
+import com.crossover.project.application.interfaces.ITestExamApplication;
 import com.crossover.project.domain.entities.Question;
-import com.crossover.project.domain.entities.User;
+import com.crossover.project.domain.entities.TestExam;
 
 @Controller
-@RequestMapping("/question")
-public class QuestionController {
+@RequestMapping("/testExam")
+public class TestExamController {
 
 	@Autowired
-	LoginController loginController;
+	ITestExamApplication testExamApplication;
 
 	@Autowired
 	IQuestionApplication questionApplication;
 
 	@Autowired
-	@Qualifier("questionValidator")
+	@Qualifier("testExamValidator")
 	private Validator validator;
 
 	@InitBinder
@@ -37,44 +37,31 @@ public class QuestionController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String initForm(Model model) {
+	public String endTest(Model model) {
 
-		User user = loginController.getUser();
+		TestExam testExam = testExamApplication.get();
 
-		Question question = questionApplication.loadNext(user);
+		model.addAttribute("testExam", testExam);
 
-		String page = "question";
-		
-		if (question != null) {
-
-			model.addAttribute("question", question);
-
-		} else {
-
-			page = "redirect:/testExam";
-		}
-
-		return page;
+		return "endTest";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitForm(Model model, @Valid Question question, BindingResult result) {
+	public String submitForm(TestExam  testExam) {
 
-		String page = "question";
+		testExamApplication.finish(testExam.getId());
 
-		if (result.hasErrors()) {
-
-			model.addAttribute("question", question);
-
-		} else {
-
-			User user = loginController.getUser();
-
-			questionApplication.answer(question.getChosenAnswer(), user);
-
-			page = "redirect:/question";
-		}
-
-		return page;
+		return "redirect:/login";
 	}
+
+	@RequestMapping("/reviewQuestion")
+	public String submitForm(Model model, @Valid TestExam testExam) {
+
+		Question question = questionApplication.getById(testExam.getChosenQuestion().getId());
+
+		model.addAttribute("question", question);
+
+		return "question";
+	}
+
 }

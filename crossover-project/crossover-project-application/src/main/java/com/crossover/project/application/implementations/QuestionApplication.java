@@ -89,4 +89,10 @@ public class QuestionApplication implements IQuestionApplication {
 		userRepo.update(user, answer);
 	}
 
+	@Override
+	public Question getById(Integer id) {
+
+		return repo.getById(id);
+	}
+
 }

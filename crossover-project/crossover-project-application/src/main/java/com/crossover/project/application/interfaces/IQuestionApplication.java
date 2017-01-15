@@ -14,6 +14,8 @@ public interface IQuestionApplication {
 
 	Question getByNumber(Integer number);
 
+	Question getById(Integer id);
+
 	List<Question> getAnsweredQuestions(User user);
 
 	List<Answer> getAnswers(User user);
