@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.crossover.project.application.interfaces.ITestExamApplication;
 import com.crossover.project.domain.entities.TestExam;
-import com.crossover.project.repository.interfaces.ITestExamRepository;
+import com.crossover.project.domain.interfaces.ITestExamRepository;
 
 @Service
 public class TestExamApplication implements ITestExamApplication {

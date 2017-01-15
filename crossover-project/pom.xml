@@ -72,8 +72,6 @@
 		<module>crossover-project-domain</module>
 		<module>crossover-project-application</module>
 		<module>crossover-project-web</module>
-		<module>crossover-project-ear</module>
-		<module>crossover-project-api</module>
 		<module>crossover-project-repository</module>
 	</modules>
 </project>

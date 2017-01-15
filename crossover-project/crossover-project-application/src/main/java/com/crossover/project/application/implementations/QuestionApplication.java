@@ -13,9 +13,9 @@ import com.crossover.project.application.interfaces.IQuestionApplication;
 import com.crossover.project.domain.entities.Answer;
 import com.crossover.project.domain.entities.Question;
 import com.crossover.project.domain.entities.User;
-import com.crossover.project.repository.interfaces.IAnswerRepository;
-import com.crossover.project.repository.interfaces.IQuestionRepository;
-import com.crossover.project.repository.interfaces.IUserRepository;
+import com.crossover.project.domain.interfaces.IAnswerRepository;
+import com.crossover.project.domain.interfaces.IQuestionRepository;
+import com.crossover.project.domain.interfaces.IUserRepository;
 
 @Service
 public class QuestionApplication implements IQuestionApplication {

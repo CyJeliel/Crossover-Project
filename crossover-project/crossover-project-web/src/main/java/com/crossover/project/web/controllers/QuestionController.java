@@ -1,13 +1,12 @@
 package com.crossover.project.web.controllers;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,7 +43,7 @@ public class QuestionController {
 		Question question = questionApplication.loadNext(user);
 
 		String page = "question";
-		
+
 		if (question != null) {
 
 			model.addAttribute("question", question);
@@ -58,7 +57,7 @@ public class QuestionController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitForm(Model model, @Valid Question question, BindingResult result) {
+	public String submitForm(Model model, @Validated Question question, BindingResult result) {
 
 		String page = "question";
 

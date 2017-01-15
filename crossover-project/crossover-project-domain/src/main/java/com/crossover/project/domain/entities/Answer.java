@@ -1,6 +1,6 @@
 package com.crossover.project.domain.entities;
 
-import com.crossover.project.domain.interfaces.InterfaceDomain;
+import com.crossover.project.domain.interfaces.core.InterfaceDomain;
 
 public class Answer implements InterfaceDomain<Integer> {
 

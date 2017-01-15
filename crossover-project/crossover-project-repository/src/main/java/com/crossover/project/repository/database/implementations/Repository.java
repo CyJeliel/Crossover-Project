@@ -14,8 +14,8 @@ import javax.persistence.Parameter;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import com.crossover.project.domain.interfaces.InterfaceDomain;
-import com.crossover.project.repository.interfaces.core.IRepository;
+import com.crossover.project.domain.interfaces.core.IRepository;
+import com.crossover.project.domain.interfaces.core.InterfaceDomain;
 import com.crossover.project.repository.mapper.entities.core.InterfaceEntity;
 import com.crossover.project.repository.mapper.interfaces.IMapper;
 

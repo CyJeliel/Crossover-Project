@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.crossover.project.domain.interfaces.InterfaceDomain;
+import com.crossover.project.domain.interfaces.core.InterfaceDomain;
 
 public class Question implements InterfaceDomain<Integer> {
 

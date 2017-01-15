@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.crossover.project.application.interfaces.ICredentialsApplication;
 import com.crossover.project.domain.entities.User;
-import com.crossover.project.repository.interfaces.IUserRepository;
+import com.crossover.project.domain.interfaces.IUserRepository;
 
 @Service
 public class CredentialsApplication implements ICredentialsApplication {

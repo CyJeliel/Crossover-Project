@@ -1,12 +1,11 @@
 package com.crossover.project.web.controllers;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +46,7 @@ public class TestExamController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String submitForm(TestExam  testExam) {
+	public String submitForm(TestExam testExam) {
 
 		testExamApplication.finish(testExam.getId());
 
@@ -55,7 +54,7 @@ public class TestExamController {
 	}
 
 	@RequestMapping("/reviewQuestion")
-	public String submitForm(Model model, @Valid TestExam testExam) {
+	public String submitForm(Model model, @Validated TestExam testExam) {
 
 		Question question = questionApplication.getById(testExam.getChosenQuestion().getId());
 

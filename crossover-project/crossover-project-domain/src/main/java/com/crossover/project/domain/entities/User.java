@@ -3,7 +3,7 @@ package com.crossover.project.domain.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.crossover.project.domain.interfaces.InterfaceDomain;
+import com.crossover.project.domain.interfaces.core.InterfaceDomain;
 
 /**
  * 

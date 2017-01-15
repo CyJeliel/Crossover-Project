@@ -1,4 +1,4 @@
-package com.crossover.project.repository.interfaces.core;
+package com.crossover.project.domain.interfaces.core;
 
 import java.io.Serializable;
 import java.util.Collection;
